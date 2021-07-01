@@ -2,7 +2,9 @@
 node_modules
 /dist
 
+yarn.lock
 
+target
 # local env files
 .env.local
 .env.*.local
