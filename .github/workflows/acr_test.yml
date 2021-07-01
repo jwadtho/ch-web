@@ -2,13 +2,9 @@
 
 name: Push image to ACR
 
-on:
-  release:
-    types: [created]
-#   push:
-#     branches:
-#     - master
 
+on:
+  workflow_dispatch:
 # Environment variables available to all jobs and steps in this workflow.
 env:
   REGION_ID: cn-shanghai
