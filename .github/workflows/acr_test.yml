@@ -1,0 +1,55 @@
+
+
+name: Push image to ACR
+
+on:
+  release:
+    types: [created]
+#   push:
+#     branches:
+#     - master
+
+# Environment variables available to all jobs and steps in this workflow.
+env:
+  REGION_ID: cn-shanghai
+  ACR_EE_REGISTRY: xom-ecomm-acr02-registry.cn-shanghai.cr.aliyuncs.com
+  ACR_EE_INSTANCE_ID: cri-3fynibeigjxpi5o6
+  ACR_EE_NAMESPACE: tootest
+  ACR_EE_IMAGE: ch-web
+  ACR_EE_TAG: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 2.1 (Optional) Login to ACR EE
+      - uses: actions/checkout@v2
+      - name: Login to ACR EE with the AccessKey pair
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: "https://${{ env.ACR_EE_REGISTRY }}"
+          region-id: "${{ env.REGION_ID }}"
+          access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
+          access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
+          instance-id: "${{ env.ACR_EE_INSTANCE_ID }}"
+
+      # 2.2 (Optional) Build and push image ACR EE
+      - name: Build and push image to ACR EE
+        run: |
+          docker build -t "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$TAG" .
+          docker push "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$TAG"
+      # 2.3 (Optional) Scan image in ACR EE
+      - name: Scan image in ACR EE
+        uses: aliyun/acr-scan@v1
+        with:
+          region-id: "${{ env.REGION_ID }}"
+          access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
+          access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
+          instance-id: "${{ env.ACR_EE_INSTANCE_ID }}"
+          repository: "${{ env.ACR_EE_NAMESPACE}}/${{ env.ACR_EE_IMAGE }}"
+          tag: "${{ env.ACR_EE_TAG }}"
+
