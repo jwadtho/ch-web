@@ -2,11 +2,12 @@
 
 name: Push image to ACR
 
-# Controls when the workflow will run
 on:
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  release:
+    types: [created]
+#   push:
+#     branches:
+#     - master
 
 # Environment variables available to all jobs and steps in this workflow.
 env:
@@ -37,9 +38,11 @@ jobs:
           instance-id: "${{ env.ACR_EE_INSTANCE_ID }}"
 
       # 2.2 (Optional) Build and push image ACR EE
-      - name: Build and push image to ACR EE
+      - name: Build image
         run: |
           docker build -t "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$TAG" .
+      - name: Push image to ACR EE
+        run: |
           docker push "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$TAG"
       # 2.3 (Optional) Scan image in ACR EE
       - name: Scan image in ACR EE
