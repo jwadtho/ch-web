@@ -40,3 +40,4 @@ jobs:
              -Dsonar.organization=Exxonmobil
              -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
              -Dsonar.projectKey=dfsdgsdgdd-occ-web
+             -Dcom.sun.net.ssl.checkRevocation=false
