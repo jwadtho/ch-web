@@ -36,6 +36,7 @@ jobs:
       - name: Print DOCKER_CONFIG
         run: |
           echo DOCKER_CONFIG="${{ env.DOCKER_CONFIG }}"
+          cat ${{ env.DOCKER_CONFIG }}/config.json
 
       # Build and push image ACR EE
       - name: Build image
