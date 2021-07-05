@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # 2.1 (Optional) Login to ACR EE
+      # Login to ACR EE
       - uses: actions/checkout@v2
       - name: Login to ACR EE with the AccessKey pair
         uses: aliyun/acr-login@v1
@@ -32,8 +32,12 @@ jobs:
           access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
           access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
           instance-id: "${{ env.ACR_EE_INSTANCE_ID }}"
+          
+      - name: Print DOCKER_CONFIG
+        run: |
+          echo DOCKER_CONFIG="${{ env.DOCKER_CONFIG }}"
 
-      # 2.2 (Optional) Build and push image ACR EE
+      # Build and push image ACR EE
       - name: Build image
         run: |
           docker build -t "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$ACR_EE_TAG" .
