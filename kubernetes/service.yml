@@ -12,7 +12,7 @@ spec:
   selector:
     app: web
   ports:
-  - port: 1122
+  - port: 1155
     protocol: TCP
     targetPort: 80
   type: LoadBalancer

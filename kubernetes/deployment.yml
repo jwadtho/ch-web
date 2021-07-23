@@ -16,7 +16,7 @@ spec:
         app: web
     spec:
       containers:
-      - name: user
+      - name: web
         image: xom-ecomm-acr02-registry.cn-shanghai.cr.aliyuncs.com/tootest/ch-web:GITHUB_SHA
         imagePullPolicy: IfNotPresent
         ports:
@@ -27,4 +27,4 @@ spec:
             cpu: "250m"
       imagePullSecrets:
         - name: alibaba-registry-credential-web
-   
+
