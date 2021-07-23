@@ -42,7 +42,7 @@ jobs:
       run: yarn run build
       
     - name: build Docker imgae
-      run: docker build -t ch-web:$VERSION .
+      run: docker build -t "$ACR_EE_REGISTRY/$ACR_EE_NAMESPACE/$ACR_EE_IMAGE:$VERSION" .
       
     - name: Login to ACR EE with the AccessKey pair
       uses: aliyun/acr-login@v1
