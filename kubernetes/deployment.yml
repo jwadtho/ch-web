@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  namespace: {NAMESPACE}
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: user
+        image: xom-ecomm-acr02-registry.cn-shanghai.cr.aliyuncs.com/tootest/ch-web:GITHUB_SHA
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+      imagePullSecrets:
+        - name: alibaba-registry-credential-web
+   
