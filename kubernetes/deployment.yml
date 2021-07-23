@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    k8s.aliyun.com/acr-instance-id: cri-3fynibeigjxpi5o6
   name: web-deployment
   namespace: {NAMESPACE}
   labels:
@@ -17,7 +19,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: xom-ecomm-acr02-registry.cn-shanghai.cr.aliyuncs.com/tootest/ch-web:GITHUB_SHA
+        image: xom-ecomm-acr02-registry-vpc.cn-shanghai.cr.aliyuncs.com/tootest/ch-web:GITHUB_SHA
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -25,6 +27,4 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "250m"
-      imagePullSecrets:
-        - name: alibaba-registry-credential-web
    
