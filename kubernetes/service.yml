@@ -14,5 +14,5 @@ spec:
   ports:
   - port: 1122
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
   type: LoadBalancer
