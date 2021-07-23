@@ -20,7 +20,7 @@ spec:
         image: xom-ecomm-acr02-registry.cn-shanghai.cr.aliyuncs.com/tootest/ch-web:GITHUB_SHA
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
